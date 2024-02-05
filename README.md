@@ -46,7 +46,7 @@
 **Source 2:** Veganic Agriculture Network. Microclimates [link](https://goveganic.net/how-to-grow/approaches-to-veganic/permaculture/microclimates/)
 **Context:** Gives basic and useful information about microclimates, how they can be observed and created. May be beneficial in understanding what data to collect on microclimates.
 
-**Source 3:** Field Study Council. Microclimate [link](https://www.field-studies-council.org/resources/16-18-biology/fieldwork-techniques/abiotic-factors/microclimate/#:~:text=Microclimate%20data%20(including%20soil%20temperature,environmental%20stresses%20experienced%20by%20plants.)
+**Source 3:** Field Study Council. Microclimate [link](https://www.field-studies-council.org/resources/16-18-biology/fieldwork-techniques/abiotic-factors/microclimate/)
 **Context:** A more simple version of microclimate information but still could be useful in understanding the how and what data needs to be collected.
 
 
