@@ -26,14 +26,14 @@ This provides us a list of ambient weather monitoring systems all marked at diff
 
 ### Hasan
 
-**Source 1:**
-**Context:**
+1)  [microclimate system using esp32] (https://www.kaznu.kz/content/files/pages/folder23485/11%20%D0%A1%D0%BA%D0%BE%D0%BF%D1%83%D1%81%20Test%20Engineering%20and%20Menegement.pdf)
+shows how to use esp32 for a home microclimate system. It also shows some components needed to build it.
 
-**Source 2:**
-**Context:**
+2)  [Design, Fabrication, and Experimental Study of a Low-cost and Accurate Weather Station Using a Microcontroller System] (https://www.researchgate.net/publication/370133727_Design_Fabrication_and_Experimental_Study_of_a_Low-cost_and_Accurate_Weather_Station_Using_a_Microcontroller_System)
 
-**Source 3:**
-**Context:**
+3)  [components of weather system] (https://www.niubol.com/Product-knowledge/components-of-weather-station.html)
+4)  [automated weather stations] (https://www.earthnetworks.com/resources/weather-facts/automated-weather-stations/)
+5)  [components of an automated weather station]  (https://aeronsystems.com/the-components-of-an-automatic-weather-station/)
 
 
 ### Basit
