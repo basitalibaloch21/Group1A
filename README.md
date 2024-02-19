@@ -30,7 +30,7 @@ This provides us a list of ambient weather monitoring systems all marked at diff
 shows how to use esp32 for a home microclimate system. It also shows some components needed to build it.
 
 * **Source 2**:  [Design, Fabrication, and Experimental Study of a Low-cost and Accurate Weather Station Using a Microcontroller System] (https://www.researchgate.net/publication/370133727_Design_Fabrication_and_Experimental_Study_of_a_Low-cost_and_Accurate_Weather_Station_Using_a_Microcontroller_System)
-* explains what to consider when making the microclimate system. Can help with the design and how it should be to endure in various climates throughout the year.
+explains what to consider when making the microclimate system. Can help with the design and how it should be to endure in various climates throughout the year.
 
 * **Source 3**:  [components of weather system] (https://www.niubol.com/Product-knowledge/components-of-weather-station.html)
 * **Source 4**:  [automated weather stations] (https://www.earthnetworks.com/resources/weather-facts/automated-weather-stations/)
