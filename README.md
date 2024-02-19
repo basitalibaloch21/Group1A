@@ -7,7 +7,7 @@
 # Background research 
 
 
-* **Source 1**: [Rasberry Pi Weather Monitor System] (https://fastercapital.com/content/Weather-Station--Building-Your-Own-Weather-Monitoring-System-with-RPi.html)
+ [Rasberry Pi Weather Monitor System] (https://fastercapital.com/content/Weather-Station--Building-Your-Own-Weather-Monitoring-System-with-RPi.html)
   It shows us how to build a reasonable low cost weather monitoring system using rasbery pi. This breaks down many posible components, though process, and procedure as to how to build the system with lots of different variations. It's not a one path guide, its a guide with alternatives provided also.
   
 * **Source 2**: [Ambirent Weather Mointoring System] (https://ambientweather.com/amws1965-wifi-weather-station-with-remote-monitoring)
@@ -26,14 +26,14 @@ This provides us a list of ambient weather monitoring systems all marked at diff
 
 ### Hasan
 
-1)  [microclimate system using esp32] (https://www.kaznu.kz/content/files/pages/folder23485/11%20%D0%A1%D0%BA%D0%BE%D0%BF%D1%83%D1%81%20Test%20Engineering%20and%20Menegement.pdf)
+* **Source 1**:  [microclimate system using esp32] (https://www.kaznu.kz/content/files/pages/folder23485/11%20%D0%A1%D0%BA%D0%BE%D0%BF%D1%83%D1%81%20Test%20Engineering%20and%20Menegement.pdf)
 shows how to use esp32 for a home microclimate system. It also shows some components needed to build it.
 
-2)  [Design, Fabrication, and Experimental Study of a Low-cost and Accurate Weather Station Using a Microcontroller System] (https://www.researchgate.net/publication/370133727_Design_Fabrication_and_Experimental_Study_of_a_Low-cost_and_Accurate_Weather_Station_Using_a_Microcontroller_System)
+* **Source 2**:  [Design, Fabrication, and Experimental Study of a Low-cost and Accurate Weather Station Using a Microcontroller System] (https://www.researchgate.net/publication/370133727_Design_Fabrication_and_Experimental_Study_of_a_Low-cost_and_Accurate_Weather_Station_Using_a_Microcontroller_System)
 
-3)  [components of weather system] (https://www.niubol.com/Product-knowledge/components-of-weather-station.html)
-4)  [automated weather stations] (https://www.earthnetworks.com/resources/weather-facts/automated-weather-stations/)
-5)  [components of an automated weather station]  (https://aeronsystems.com/the-components-of-an-automatic-weather-station/)
+* **Source 3**:  [components of weather system] (https://www.niubol.com/Product-knowledge/components-of-weather-station.html)
+* **Source 4**:  [automated weather stations] (https://www.earthnetworks.com/resources/weather-facts/automated-weather-stations/)
+* **Source 5**:  [components of an automated weather station]  (https://aeronsystems.com/the-components-of-an-automatic-weather-station/)
 
 
 ### Basit
