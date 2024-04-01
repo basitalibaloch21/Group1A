@@ -1,1 +1,1 @@
-***We placed our final copy of our Showcase Poster in this folder***
+***This is where we placed our final copy of our Showcase Poster***
