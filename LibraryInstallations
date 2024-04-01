@@ -1,0 +1,4 @@
+- RF24 by TMRh20 (V1.4.8)                       : Install via "Manage Libraries" or "Library Manager" in the Arduino IDE with the search keyword "rf24".
+- DHT sensor library by Adafruit (V1.3.5)       : Install via "Manage Libraries" or "Library Manager" in the Arduino IDE with the search keyword "DHT".
+- Adafruit Unified Sensor by Adafruit (V1.0.3)  : Install via "Manage Libraries" or "Library Manager" in the Arduino IDE with the search keyword "Adafruit Unified Sensor".
+- LiquidCrystal_I2C (V1.1.4)                    : https://github.com/johnrickman/LiquidCrystal_I2C
