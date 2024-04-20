@@ -1,1 +1,89 @@
 
+#include <SPI.h>
+#include <nRF24L01.h>
+#include <RF24.h>
+#include <DHT11.h>
+
+
+
+//**THIS IS THE TRANSMITTER CODE
+
+RTC_DATA_ATTR bool RTC_previous_report0 = true;
+RTC_DATA_ATTR bool RTC_previous_report1 = true;
+RTC_DATA_ATTR bool RTC_previous_report2 = true;
+
+DHT11 dht11(18); //create an instance of the temperature humidity sensor
+
+RF24 radio(4,5); //CE, CSN, create an instance of the RF
+
+const byte address[6] = "00001"; //addresses are assigned via byte array
+int TempHum[2] = {0,0};
+
+void setup() {
+  Serial.begin(115200); //begin serial communication at 115200 baud rate
+  radio.begin(); //initialize the hardware with the SPI bus
+  radio.stopListening(); //do not listen, we are in TX mode
+  radio.openWritingPipe(address); //open a writing pipe to channel 1
+  setting_PA();
+
+}
+
+
+void loop() {
+  int result = dht11.readTemperatureHumidity(TempHum[0], TempHum[1]);
+  bool current_report = radio.write(TempHum, sizeof(TempHum));
+  if(current_report){
+    Serial.println("--------------------------------------------------");
+    Serial.println("Transmission successful!");
+    Serial.print("Temperature: ");
+    Serial.print(TempHum[0]);
+    Serial.print(" °C\nHumidity: ");
+    Serial.print(TempHum[1]);
+    Serial.println(" %");
+  }
+  else{
+    Serial.println("Transmission failed!");
+  }
+  
+  esp_sleep_enable_timer_wakeup(5 * 1000000ULL);
+  Serial.println("Going to sleep for 1 second(s)...");
+  Serial.flush(); 
+  esp_deep_sleep_start();
+}
+
+void setting_PA() {
+  int testing_word = -271;
+  radio.setPALevel(RF24_PA_MIN);                   // set the power mode of the module.
+  if (radio.write(&testing_word, sizeof(int))) {  // stay at low if test is passed otherwise test other powers until the best one is.
+    Serial.println("Power level MIN...");
+    return;
+  }
+  else {
+    radio.setPALevel(RF24_PA_LOW);
+    if (radio.write(&testing_word, sizeof(int))) {
+      Serial.println("Power level LOW...");
+      return;
+    } 
+    else {
+      radio.setPALevel(RF24_PA_HIGH);
+      if (radio.write(&testing_word, sizeof(int))) {
+        Serial.println("Power level HIGH...");
+        return;
+      } 
+      else {
+        radio.setPALevel(RF24_PA_MAX);
+        if (radio.write(&testing_word, sizeof(int))) {
+          Serial.println("Power level MAX...");
+          return;
+        } 
+        else {
+          Serial.println("receiver is not found. Setting power to MAX.");
+          RTC_previous_report2 = RTC_previous_report1;
+          RTC_previous_report1 = RTC_previous_report0;
+          RTC_previous_report0 = radio.write(&testing_word, sizeof(int));
+          return;
+        }
+      }
+    }
+  }
+}
