@@ -11,7 +11,6 @@
 
 #include "WiFi.h"
 #include "ESPAsyncWebServer.h"
-#include <Adafruit_Sensor.h>
 
 int TempHum[2] = {0,0};
 
@@ -19,8 +18,8 @@ int currentTemp = 0;
 int currentHum = 0;
  
 // Replace with your network credentials
-const char* ssid = "S22Ultra";
-const char* password = "12345678";
+const char* ssid = "NETGEAR05";
+const char* password = "modernroad089";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -119,7 +118,7 @@ setInterval(function ( ) {
 
   xhttp.send();
 
-}, 10000 ) ;
+}, 1000 ) ;
 
  
 
@@ -141,7 +140,7 @@ setInterval(function ( ) {
 
   xhttp.send();
 
-}, 10000 ) ;
+}, 1000 ) ;
 
 </script>
 
@@ -175,7 +174,6 @@ String readDHTTemperature() {
     TempHum[0] = currentTemp;
     TempHum[1] = currentHum;
   }
-  Serial.println("Uploading to website");
   return String(TempHum[0]);
 }
 
@@ -184,7 +182,6 @@ String readDHTHumidity() {
     TempHum[0] = currentTemp;
     TempHum[1] = currentHum;
   }
-  Serial.println("Uploading to website");
   return String(TempHum[1]);
 }
 
@@ -203,12 +200,16 @@ void setup() {
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
 
+  Serial.print("Connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
-    Serial.println("Connecting to WiFi..");
+    Serial.print(".");
   }
+  Serial.println("Connected.");
+  
 
   // Print ESP32 Local IP Address
+  Serial.print("IP: ");
   Serial.println(WiFi.localIP());
 
   // Route for root / web page
@@ -254,8 +255,8 @@ void loop() {
       Serial.print(" °C\tHumidity: ");
       Serial.print(TempHum[1]);
       Serial.println(" %");
+      Serial.println("--------------------------------------------------");
     }
   }
 }
-
 
