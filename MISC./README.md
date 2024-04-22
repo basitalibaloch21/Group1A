@@ -1,1 +1,1 @@
-***This is where we placed our misc information***
+## Information here is miscellaneous/was helpful to our end products
