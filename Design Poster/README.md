@@ -1,1 +1,1 @@
-# Final copy of our design poster
+## Final copy of our design poster
