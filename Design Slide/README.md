@@ -1,2 +1,2 @@
 ## Final copy of our Slide Presentation
-### There is a pdf file and a link to the actual document
+### There is a pdf file, a link to the actual document, and the mov file of the demo video
