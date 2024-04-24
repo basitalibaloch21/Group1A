@@ -19,13 +19,15 @@ RF24 radio(4,5); //CE, CSN, create an instance of the RF
 const byte address[6] = "00001"; //addresses are assigned via byte array
 int TempHum[2] = {0,0};
 
+RTC_ATTR_DATA int setting_pa_current; 
+
 void setup() {
+
   Serial.begin(115200); //begin serial communication at 115200 baud rate
   radio.begin(); //initialize the hardware with the SPI bus
   radio.stopListening(); //do not listen, we are in TX mode
   radio.openWritingPipe(address); //open a writing pipe to channel 1
   setting_PA();
-
 }
 
 
@@ -53,28 +55,28 @@ void loop() {
 }
 
 void setting_PA() {
-  int testing_word = -271;
+  char testing_power;
   radio.setPALevel(RF24_PA_MIN);                   // set the power mode of the module.
   if (radio.write(&testing_word, sizeof(int))) {  // stay at low if test is passed otherwise test other powers until the best one is.
-    Serial.println("Power level MIN...");
+    testing_power = 120;
     return;
   }
   else {
     radio.setPALevel(RF24_PA_LOW);
     if (radio.write(&testing_word, sizeof(int))) {
-      Serial.println("Power level LOW...");
+      testing_power = 121;
       return;
     } 
     else {
       radio.setPALevel(RF24_PA_HIGH);
       if (radio.write(&testing_word, sizeof(int))) {
-        Serial.println("Power level HIGH...");
+        testing_power = 122;
         return;
       } 
       else {
         radio.setPALevel(RF24_PA_MAX);
         if (radio.write(&testing_word, sizeof(int))) {
-          Serial.println("Power level MAX...");
+          testing_power = 123;
           return;
         } 
         else {
