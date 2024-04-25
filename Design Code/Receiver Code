@@ -32,85 +32,6 @@ RF24 radio(4, RFCSN); //CE, CSN, create an instance of the RF
 
 const byte address[6] = "00001";
 
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(115200);
-
-  // Connect to Wi-Fi
-  WiFi.begin(ssid, password);
-
-  Serial.print("Connecting to WiFi");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.print(".");
-  }
-  Serial.println("\nConnected.");
-  
-
-  // Print ESP32 Local IP Address
-  Serial.print("IP: ");
-  Serial.println(WiFi.localIP());
-
-  // Route for root / web page
-
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-
-    request->send_P(200, "text/html", index_html, processor);
-
-  });
-
-  server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
-
-    request->send_P(200, "text/plain", readDHTTemperature().c_str());
-
-  });
-
-  server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
-
-    request->send_P(200, "text/plain", readDHTHumidity().c_str());
-
-  });
-
-  // Start server
-  server.begin();
-  radio.begin();
-  radio.openReadingPipe(0, address); //open a pipe to read
-  radio.setPALevel(RF24_PA_MAX);
-  radio.startListening();
-}
-
-void loop() {
-  if (radio.available()){
-    radio.read(TempHum, sizeof(TempHum));
-    if (TempHum[0] > 119){
-      if (TempHum[0] == 120){
-        radio.setPALevel(RF24_PA_MIN);
-      }
-      else if (TempHum[0] == 121){
-        radio.setPALevel(RF24_PA_LOW);
-      }
-      else if (TempHum[0] == 121){
-        radio.setPALevel(RF24_PA_HIGH);
-      }
-      else if (TempHum[0] == 121){
-        radio.setPALevel(RF24_PA_MAX);
-      }
-    }
-      
-    else{
-      currentTemp = TempHum[0];
-      currentHum = TempHum[1];
-      Serial.println("Recieved readings: ");
-      Serial.print("Temperature: ");
-      Serial.print(TempHum[0]);
-      Serial.print(" °C\tHumidity: ");
-      Serial.print(TempHum[1]);
-      Serial.println(" %");
-      Serial.println("--------------------------------------------------");
-    }
-  }
-}
-
 
 
 // Replaces placeholder with DHT values
@@ -274,4 +195,85 @@ setInterval(function ( ) {
 </script>
 
 </html>)rawliteral";
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+
+  // Connect to Wi-Fi
+  WiFi.begin(ssid, password);
+
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+  Serial.println("\nConnected.");
+  
+
+  // Print ESP32 Local IP Address
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+
+  // Route for root / web page
+
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+
+    request->send_P(200, "text/html", index_html, processor);
+
+  });
+
+  server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
+
+    request->send_P(200, "text/plain", readDHTTemperature().c_str());
+
+  });
+
+  server.on("/humidity", HTTP_GET, [](AsyncWebServerRequest *request){
+
+    request->send_P(200, "text/plain", readDHTHumidity().c_str());
+
+  });
+
+  // Start server
+  server.begin();
+  radio.begin();
+  radio.openReadingPipe(0, address); //open a pipe to read
+  radio.setPALevel(RF24_PA_MAX);
+  radio.startListening();
+}
+
+void loop() {
+  if (radio.available()){
+    radio.read(TempHum, sizeof(TempHum));
+    if (TempHum[0] > 119){
+      if (TempHum[0] == 120){
+        radio.setPALevel(RF24_PA_MIN);
+      }
+      else if (TempHum[0] == 121){
+        radio.setPALevel(RF24_PA_LOW);
+      }
+      else if (TempHum[0] == 121){
+        radio.setPALevel(RF24_PA_HIGH);
+      }
+      else if (TempHum[0] == 121){
+        radio.setPALevel(RF24_PA_MAX);
+      }
+    }
+      
+    else{
+      currentTemp = TempHum[0];
+      currentHum = TempHum[1];
+      Serial.println("Recieved readings: ");
+      Serial.print("Temperature: ");
+      Serial.print(TempHum[0]);
+      Serial.print(" °C\tHumidity: ");
+      Serial.print(TempHum[1]);
+      Serial.println(" %");
+      Serial.println("--------------------------------------------------");
+    }
+  }
+}
+
 
