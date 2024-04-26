@@ -1,4 +1,3 @@
-
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
@@ -19,7 +18,6 @@ RF24 radio(4,5); //CE, CSN, create an instance of the RF
 const byte address[6] = "00001"; //addresses are assigned via byte array
 int TempHum[2] = {0,0};
 
-RTC_ATTR_DATA int setting_pa_current; 
 
 void setup() {
 
@@ -32,8 +30,9 @@ void setup() {
 
 
 void loop() {
-  int result = dht11.readTemperatureHumidity(TempHum[0], TempHum[1]);
+  bool result = dht11.readTemperatureHumidity(TempHum[0], TempHum[1]);
   bool current_report = radio.write(TempHum, sizeof(TempHum));
+
   if(current_report){
     Serial.println("--------------------------------------------------");
     Serial.println("Transmission successful!");
@@ -44,7 +43,14 @@ void loop() {
     Serial.println(" %");
     Serial.println("--------------------------------------------------");
   }
+  else if (!RTC_previous_report2 && !RTC_previous_report1 && !RTC_previous_report0){
+    Serial.println("Restarting...");
+    ESP.restart();
+  }
   else{
+    RTC_previous_report2 = RTC_previous_report1;
+    RTC_previous_report1 = RTC_previous_report0;
+    RTC_previous_report0 = current_report;
     Serial.println("Transmission failed!");
   }
   
@@ -57,36 +63,33 @@ void loop() {
 void setting_PA() {
   char testing_power;
   radio.setPALevel(RF24_PA_MIN);                   // set the power mode of the module.
-  if (radio.write(&testing_word, sizeof(int))) {  // stay at low if test is passed otherwise test other powers until the best one is.
-    testing_power = 120;
-    return;
+  if (radio.write(&testing_power, sizeof(char))) {  // stay at low if test is passed otherwise test other powers until the best one is.
+    testing_power = 250;
   }
   else {
     radio.setPALevel(RF24_PA_LOW);
-    if (radio.write(&testing_word, sizeof(int))) {
-      testing_power = 121;
-      return;
+    if (radio.write(&testing_power, sizeof(char))) {
+      testing_power = 251;
     } 
     else {
       radio.setPALevel(RF24_PA_HIGH);
-      if (radio.write(&testing_word, sizeof(int))) {
-        testing_power = 122;
-        return;
+      if (radio.write(&testing_power, sizeof(char))) {
+        testing_power = 252;
       } 
       else {
         radio.setPALevel(RF24_PA_MAX);
-        if (radio.write(&testing_word, sizeof(int))) {
-          testing_power = 123;
-          return;
+        if (radio.write(&testing_power, sizeof(char))) {
+          testing_power = 253;
         } 
         else {
           Serial.println("receiver is not found. Setting power to MAX.");
           RTC_previous_report2 = RTC_previous_report1;
           RTC_previous_report1 = RTC_previous_report0;
-          RTC_previous_report0 = radio.write(&testing_word, sizeof(int));
-          return;
+          RTC_previous_report0 = radio.write(&testing_power, sizeof(int));
+          testing_power = 253;
         }
       }
     }
   }
+  Serial.println((int) testing_power);
 }
