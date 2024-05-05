@@ -12,6 +12,8 @@ RTC_DATA_ATTR bool RTC_previous_report1 = true;
 RTC_DATA_ATTR bool RTC_previous_report2 = true;
 RTC_DATA_ATTR bool first_time_set = true;
 
+int sleep_time = 1 * 1000000ULL;
+int wakeup_count = 0;
 
 DHT11 dht11(18);  //create an instance of the temperature humidity sensor
 
@@ -65,9 +67,13 @@ void loop() {
   }
 
   else {
+    wakeup_count++;
     result = dht11.readTemperatureHumidity(TempHum[0], TempHum[1]);
     current_report = radio.write(TempHum, sizeof(TempHum));
-
+    if (wakeup_count == 120){ // restart to reset the power level
+      Serial.println("Restarting...");
+      ESP.restart();
+      }
     if (current_report) {
       Serial.println("--------------------------------------------------");
       Serial.println("Transmission successful!");
@@ -77,6 +83,7 @@ void loop() {
       Serial.print(TempHum[1]);
       Serial.println(" %");
       Serial.println("--------------------------------------------------");
+      
     } else if (!RTC_previous_report2 && !RTC_previous_report1 && !RTC_previous_report0) {
       Serial.println("Restarting...");
       ESP.restart();
@@ -88,7 +95,7 @@ void loop() {
     }
   }
 
-  esp_sleep_enable_timer_wakeup(1 * 1000000ULL);
+  esp_sleep_enable_timer_wakeup(sleep_time);
   Serial.println("Going to sleep for 1 second(s)...");
   Serial.flush();
   esp_light_sleep_start();
